@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="border-b py-4">
+    <nav className="py-4">
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <span className="text-2xl font-bold brand-text">Sqush.it</span>
