@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import { authService } from "@/services/authService";
 
 const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,7 +33,7 @@ const Signup = () => {
     setIsLoading(true);
     
     try {
-      await authService.register(email, password);
+      await authService.register(name,email, password);
       toast({
         title: "Account created",
         description: "Your account has been created successfully",
@@ -50,68 +51,49 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1 container flex items-center justify-center py-12">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-            <CardDescription>
-              Enter your email and create a password to get started
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="email@example.com" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input 
-                  id="password" 
-                  type="password" 
-                  required 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input 
-                  id="confirmPassword" 
-                  type="password" 
-                  required 
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Create Account"}
-              </Button>
-            </form>
-          </CardContent>
-          <CardFooter className="flex justify-center">
-            <p className="text-sm text-muted-foreground">
-              Already have an account?{" "}
-              <Link to="/login" className="text-primary hover:underline">
-                Login
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
-      </main>
-    </div>
+      <div className="min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-1 container flex items-center justify-center py-12">
+              <Card className="w-full max-w-md">
+                  <CardHeader className="space-y-1">
+                      <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
+                      <CardDescription>Enter your email and create a password to get started</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                          <div className="space-y-2">
+                              <Label htmlFor="email">Name</Label>
+                              <Input id="name" type="text" placeholder="alex doe" required value={name} onChange={(e) => setName(e.target.value)} disabled={isLoading} />
+                          </div>
+
+                          <div className="space-y-2">
+                              <Label htmlFor="email">Email</Label>
+                              <Input id="email" type="email" placeholder="email@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
+                          </div>
+                          <div className="space-y-2">
+                              <Label htmlFor="password">Password</Label>
+                              <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading} />
+                          </div>
+                          <div className="space-y-2">
+                              <Label htmlFor="confirmPassword">Confirm Password</Label>
+                              <Input id="confirmPassword" type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={isLoading} />
+                          </div>
+                          <Button type="submit" className="w-full" disabled={isLoading}>
+                              {isLoading ? "Creating account..." : "Create Account"}
+                          </Button>
+                      </form>
+                  </CardContent>
+                  <CardFooter className="flex justify-center">
+                      <p className="text-sm text-muted-foreground">
+                          Already have an account?{" "}
+                          <Link to="/login" className="text-primary hover:underline">
+                              Login
+                          </Link>
+                      </p>
+                  </CardFooter>
+              </Card>
+          </main>
+      </div>
   );
 };
 

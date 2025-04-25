@@ -35,19 +35,27 @@ export const authService = {
         return response.data;
     },
 
-    register: async (email: string, password: string) => {
-        const response = await axios.post<RegisterResponse>(`${API_URL}/auth/register`, {
-            email,
-            password,
-        });
-
+    register: async (name: string, email: string, password: string) => {
+        const response = await axios.post<RegisterResponse>(
+            `${API_URL}/auth/register`,
+            {
+                name,
+                email,
+                password,
+            },
+            { withCredentials: true }
+        );
         localStorage.setItem("token", response.data.token);
-
         return response.data;
     },
 
-    logout: () => {
-        localStorage.removeItem("token");
+    logout: async () => {
+        try {
+            await axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
+        } catch (error) {
+            console.error("Error during logout:", error);
+            throw error;
+        }
     },
 
     isLoggedIn: () => {

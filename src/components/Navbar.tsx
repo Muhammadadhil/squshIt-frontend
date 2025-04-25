@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import axios from "axios";
+import { authService } from "@/services/authService";
 
 const Navbar = () => {
   const isLoggedIn = Boolean(localStorage.getItem("token"));
@@ -11,8 +12,8 @@ const Navbar = () => {
   const { toast } = useToast();
 
   const handleLogout = async () => {
-    // Remove auth token from localStorage
     localStorage.removeItem("token");
+    authService.logout();
     
     toast({
       title: "Logged out",
